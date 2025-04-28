@@ -8,6 +8,7 @@ let iosDropdown;
 let androidDownloadBtn;
 let iosDownloadBtn;
 let loadingIndicator;
+let releaseShaInfo;
 
 // Initialize the page when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
@@ -17,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     androidDownloadBtn = document.getElementById('android-download-btn');
     iosDownloadBtn = document.getElementById('ios-download-btn');
     loadingIndicator = document.getElementById('loading-indicator');
+    releaseShaInfo = document.getElementById('release-sha-info');
 
     // Fetch releases from GitHub
     fetchReleases();
@@ -63,6 +65,16 @@ async function fetchReleases() {
         // Process releases to extract Android and iOS assets
         const androidReleases = [];
         const iosReleases = [];
+
+        // Get the latest release for SHA information
+        const latestRelease = releases[0];
+        const releaseSha = latestRelease.target_commitish || 'Unknown';
+        const releaseDate = new Date(latestRelease.published_at || latestRelease.created_at);
+
+        // Update the release SHA info at the bottom of the page
+        if (releaseShaInfo) {
+            releaseShaInfo.textContent = `Released (${formatDate(releaseDate)}): ${releaseSha}`;
+        }
 
         for (const release of releases) {
             // Skip releases without assets
@@ -141,6 +153,11 @@ async function fetchReleases() {
         console.error('Error fetching releases:', error);
         showError(error.message);
         showLoading(false);
+
+        // Update release SHA info in case of error
+        if (releaseShaInfo) {
+            releaseShaInfo.textContent = 'Release information unavailable';
+        }
     }
 }
 
@@ -180,11 +197,26 @@ function updateAndroidDownloadLink() {
     const downloadUrl = selectedOption.value;
     const version = selectedOption.getAttribute('data-version');
 
+    // Extract release date from the option text
+    const optionText = selectedOption.textContent;
+    const dateMatch = optionText.match(/\((.*?)\)/);
+    const dateStr = dateMatch ? dateMatch[1] : '';
+
     if (downloadUrl) {
         androidDownloadBtn.href = downloadUrl;
         androidDownloadBtn.setAttribute('data-version', version);
         androidDownloadBtn.classList.remove('disabled');
         document.getElementById('android-version-display').textContent = version;
+
+        // Update release info if this is the latest Android version
+        if (androidDropdown.selectedIndex === 0) {
+            // Extract SHA from URL if possible
+            const shaMatch = downloadUrl.match(/[a-f0-9]{7,40}/i);
+            const sha = shaMatch ? shaMatch[0] : 'Unknown';
+            if (releaseShaInfo) {
+                releaseShaInfo.textContent = `Released (${dateStr}): ${sha}`;
+            }
+        }
     } else {
         androidDownloadBtn.removeAttribute('href');
         androidDownloadBtn.classList.add('disabled');
@@ -198,11 +230,26 @@ function updateIOSDownloadLink() {
     const downloadUrl = selectedOption.value;
     const version = selectedOption.getAttribute('data-version');
 
+    // Extract release date from the option text
+    const optionText = selectedOption.textContent;
+    const dateMatch = optionText.match(/\((.*?)\)/);
+    const dateStr = dateMatch ? dateMatch[1] : '';
+
     if (downloadUrl) {
         iosDownloadBtn.href = downloadUrl;
         iosDownloadBtn.setAttribute('data-version', version);
         iosDownloadBtn.classList.remove('disabled');
         document.getElementById('ios-version-display').textContent = version;
+
+        // Update release info if this is the latest iOS version
+        if (iosDropdown.selectedIndex === 0) {
+            // Extract SHA from URL if possible
+            const shaMatch = downloadUrl.match(/[a-f0-9]{7,40}/i);
+            const sha = shaMatch ? shaMatch[0] : 'Unknown';
+            if (releaseShaInfo) {
+                releaseShaInfo.textContent = `Released (${dateStr}): ${sha}`;
+            }
+        }
     } else {
         iosDownloadBtn.removeAttribute('href');
         iosDownloadBtn.classList.add('disabled');

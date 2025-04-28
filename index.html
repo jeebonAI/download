@@ -37,9 +37,11 @@
             color: white;
         }
         .version {
-            color: #6c757d;
+            color: #ffffff;
             font-size: 14px;
             margin-top: 5px;
+            font-weight: 600;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
         }
         .version-selector {
             margin-bottom: 15px;
@@ -158,6 +160,10 @@
                     <li>Sign the app with your Apple Developer account</li>
                     <li>Deploy to your connected device</li>
                 </ol>
+            </div>
+
+            <div class="release-info mt-5 pt-3 border-top text-muted text-center">
+                <small id="release-sha-info">Loading release information...</small>
             </div>
         </div>
     </div>
