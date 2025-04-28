@@ -18,19 +18,19 @@ const MIME_TYPES = {
 
 const server = http.createServer((req, res) => {
   console.log(`Request for ${req.url}`);
-  
+
   // Get the file path
   let filePath = '.' + req.url;
   if (filePath === './') {
     filePath = './index.html';
   }
-  
+
   // Get the file extension
   const extname = path.extname(filePath);
-  
+
   // Set the content type
   const contentType = MIME_TYPES[extname] || 'application/octet-stream';
-  
+
   // Read the file
   fs.readFile(filePath, (err, content) => {
     if (err) {
@@ -56,5 +56,5 @@ const server = http.createServer((req, res) => {
 server.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}/`);
   console.log(`Download page available at http://localhost:${PORT}/`);
-  console.log(`APK download available at http://localhost:${PORT}/djibon-app.apk`);
+  console.log(`APK download available at http://localhost:${PORT}/jiboni-app.apk`);
 });
