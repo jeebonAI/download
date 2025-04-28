@@ -1,6 +1,6 @@
 # Download Page Documentation
 
-The Djibon download page at [download.djibon.com](https://download.djibon.com) provides a user-friendly interface for downloading different versions of the Djibon app for Android and iOS platforms.
+The Jiboni download page at [download.jiboni.com](https://download.jiboni.com) provides a user-friendly interface for downloading different versions of the Jiboni app for Android and iOS platforms.
 
 ## Features
 
@@ -37,7 +37,7 @@ The page uses the GitHub API to fetch releases:
 async function fetchReleases() {
     try {
         showLoading(true);
-        
+
         // Add a cache-busting parameter to avoid browser caching
         const timestamp = new Date().getTime();
         const response = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/releases?_=${timestamp}`, {
@@ -46,7 +46,7 @@ async function fetchReleases() {
             },
             cache: 'no-store'
         });
-        
+
         // Process response...
     } catch (error) {
         // Handle errors...
@@ -84,22 +84,22 @@ on:
 jobs:
   deploy-download-page:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      
+
       - name: List download page files
         run: |
           echo "Files to be deployed:"
           ls -la download-page/
-      
+
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          command: pages deploy ./download-page --project-name=djibon-download
+          command: pages deploy ./download-page --project-name=jiboni-download
 ```
 
 ### Manual Deployment
@@ -107,7 +107,7 @@ jobs:
 To manually deploy the download page:
 
 ```bash
-npx wrangler pages deploy ./download-page --project-name=djibon-download
+npx wrangler pages deploy ./download-page --project-name=jiboni-download
 ```
 
 ## Updating the Download Page
