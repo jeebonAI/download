@@ -23,6 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fetch releases from GitHub
     fetchReleases();
 
+    // Fetch download site information
+    fetchDownloadSiteInfo();
+
     // Add event listeners for dropdown changes
     androidDropdown.addEventListener('change', updateAndroidDownloadLink);
     iosDropdown.addEventListener('change', updateIOSDownloadLink);
@@ -74,6 +77,7 @@ async function fetchReleases() {
         // Update the release SHA info at the bottom of the page
         if (releaseShaInfo) {
             releaseShaInfo.textContent = `Released (${formatDate(releaseDate)}): ${releaseSha}`;
+            releaseShaInfo.classList.remove('d-none'); // Make visible now that we have data
         }
 
         for (const release of releases) {
@@ -154,10 +158,8 @@ async function fetchReleases() {
         showError(error.message);
         showLoading(false);
 
-        // Update release SHA info in case of error
-        if (releaseShaInfo) {
-            releaseShaInfo.textContent = 'Release information unavailable';
-        }
+        // Don't show release SHA info in case of error
+        // The element will remain hidden
     }
 }
 
@@ -275,6 +277,35 @@ function showLoading(isLoading) {
     // Disable dropdowns while loading
     if (androidDropdown) androidDropdown.disabled = isLoading;
     if (iosDropdown) iosDropdown.disabled = isLoading;
+}
+
+
+
+// Fetch download site information from site-info.json
+async function fetchDownloadSiteInfo() {
+    try {
+        // Add a cache-busting parameter to avoid browser caching
+        const timestamp = new Date().getTime();
+        const response = await fetch(`site-info.json?_=${timestamp}`, {
+            cache: 'no-store'
+        });
+
+        if (!response.ok) {
+            console.error(`Error fetching site info: ${response.status}`);
+            return;
+        }
+
+        const siteInfo = await response.json();
+
+        // Create or update the download site info element
+        const downloadInfoElement = document.getElementById('download-site-info');
+        if (downloadInfoElement) {
+            downloadInfoElement.textContent = `Download Site | Updated: ${siteInfo.date} | SHA: ${siteInfo.sha}`;
+            downloadInfoElement.classList.remove('d-none'); // Make visible now that we have data
+        }
+    } catch (error) {
+        console.error('Error fetching download site info:', error);
+    }
 }
 
 // Show error message

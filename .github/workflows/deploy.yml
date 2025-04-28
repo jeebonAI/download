@@ -14,8 +14,23 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: List download page files
+      - name: Create site-info.json with release information
         run: |
+          # Get the current date
+          CURRENT_DATE=$(date +"%b %d, %Y")
+
+          # Get the latest commit SHA (short version)
+          COMMIT_SHA=$(git rev-parse --short HEAD)
+
+          # Create the site-info.json file
+          echo "{" > site-info.json
+          echo "  \"date\": \"$CURRENT_DATE\"," >> site-info.json
+          echo "  \"sha\": \"$COMMIT_SHA\"" >> site-info.json
+          echo "}" >> site-info.json
+
+          echo "Created site-info.json with date: $CURRENT_DATE and SHA: $COMMIT_SHA"
+
+          # List files to be deployed
           echo "Files to be deployed:"
           ls -la
 

@@ -57,6 +57,7 @@
             margin: 15px 0;
             display: none;
         }
+        /* Using Bootstrap classes for hiding elements instead of custom CSS */
         .features {
             margin-top: 30px;
         }
@@ -162,8 +163,9 @@
                 </ol>
             </div>
 
-            <div class="release-info mt-5 pt-3 border-top text-muted text-center">
-                <small id="release-sha-info">Loading release information...</small>
+            <div class="release-info mt-5 pt-3 border-top text-center">
+                <div id="release-sha-info" class="badge bg-secondary p-2 mb-2 d-none"></div>
+                <div id="download-site-info" class="badge bg-dark p-2 d-none"></div>
             </div>
         </div>
     </div>
