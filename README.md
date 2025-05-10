@@ -1,6 +1,6 @@
 # Download Page Documentation
 
-The Jeebon download page at [download.jeebon.com](https://download.jeebon.com) provides a user-friendly interface for downloading different versions of the Jeebon app for Android and iOS platforms.
+The Jeebon download page at [download.jeebon.ai](https://download.jeebon.ai) provides a user-friendly interface for downloading different versions of the Jeebon app for Android and iOS platforms.
 
 ## Features
 
