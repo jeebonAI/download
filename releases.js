@@ -318,8 +318,8 @@ function showError(message) {
         // Add a fallback message with direct links
         errorElement.innerHTML += `<div class="mt-2">You can also download the latest versions directly:</div>
         <div class="mt-2">
-            <a href="jiboni-app.apk" class="btn btn-sm btn-primary me-2" download>Download Android APK</a>
-            <a href="jiboni-ios.zip" class="btn btn-sm btn-success" download>Download iOS Bundle</a>
+            <a href="jeebon-app.apk" class="btn btn-sm btn-primary me-2" download>Download Android APK</a>
+            <a href="jeebon-ios.zip" class="btn btn-sm btn-success" download>Download iOS Bundle</a>
         </div>`;
     }
 

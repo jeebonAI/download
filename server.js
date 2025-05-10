@@ -56,5 +56,5 @@ const server = http.createServer((req, res) => {
 server.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}/`);
   console.log(`Download page available at http://localhost:${PORT}/`);
-  console.log(`APK download available at http://localhost:${PORT}/jiboni-app.apk`);
+  console.log(`APK download available at http://localhost:${PORT}/jeebon-app.apk`);
 });

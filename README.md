@@ -1,6 +1,6 @@
 # Download Page Documentation
 
-The Jiboni download page at [download.jiboni.com](https://download.jiboni.com) provides a user-friendly interface for downloading different versions of the Jiboni app for Android and iOS platforms.
+The Jeebon download page at [download.jeebon.com](https://download.jeebon.com) provides a user-friendly interface for downloading different versions of the Jeebon app for Android and iOS platforms.
 
 ## Features
 
@@ -99,7 +99,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          command: pages deploy ./download-page --project-name=jiboni-download
+          command: pages deploy ./download-page --project-name=jeebon-download
 ```
 
 ### Manual Deployment
@@ -107,7 +107,7 @@ jobs:
 To manually deploy the download page:
 
 ```bash
-npx wrangler pages deploy ./download-page --project-name=jiboni-download
+npx wrangler pages deploy ./download-page --project-name=jeebon-download
 ```
 
 ## Updating the Download Page
